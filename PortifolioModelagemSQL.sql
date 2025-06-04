@@ -33,7 +33,8 @@ create table materia (
     nome varchar(100) not null, -- nome da matéria
     id_curso int not null, -- cada matéria pertence a um curso específico
     carga_horaria int, -- número total de horas da matéria
-    foreign key (id_curso) references curso(id) on delete cascade -- se um curso for removido, suas matérias também serão excluídas
+    foreign key (id_curso)
+    references curso(id) on delete cascade -- se um curso for removido, suas matérias também serão excluídas
 );
 
 -- criar a tabela de professores
@@ -54,7 +55,8 @@ create table turma (
     id_curso int not null, -- cada turma pertence a um curso específico
     semestre int, -- semestre da turma (ex: 1º, 2º)
     horario varchar(50), -- horário da turma
-    foreign key (id_curso) references curso(id) on delete cascade -- se um curso for removido, suas turmas também serão excluídas
+    foreign key (id_curso)
+    references curso(id) on delete cascade -- se um curso for removido, suas turmas também serão excluídas
 );
 
 -- criar a tabela de associação entre aluno e turma
@@ -85,8 +87,10 @@ create table nota (
     nota1 decimal(4,2), -- nota da primeira avaliação
     nota2 decimal(4,2), -- nota da segunda avaliação
     media_final decimal(4,2), -- média final calculada automaticamente pelo trigger
-    foreign key (id_aluno) references aluno(id) on delete cascade, -- se um aluno for removido, suas notas também serão excluídas
-    foreign key (id_materia) references materia(id) on delete cascade -- se uma matéria for removida, suas notas também serão apagadas
+    foreign key (id_aluno)
+    references aluno(id) on delete cascade, -- se um aluno for removido, suas notas também serão excluídas
+    foreign key (id_materia)
+    references materia(id) on delete cascade -- se uma matéria for removida, suas notas também serão apagadas
 );
 
 -- criar a tabela de presença
@@ -96,8 +100,10 @@ create table presenca (
     id_materia int not null, -- identificador da matéria
     data_aula date not null, -- data da aula
     presenca boolean not null, -- presença (true = presente, false = ausente)
-    foreign key (id_aluno) references aluno(id) on delete cascade, -- se um aluno for removido, seus registros de presença também serão apagados
-    foreign key (id_materia) references materia(id) on delete cascade -- se uma matéria for removida, seus registros de presença também serão excluídos
+    foreign key (id_aluno) 
+    references aluno(id) on delete cascade, -- se um aluno for removido, seus registros de presença também serão apagados
+    foreign key (id_materia)
+    references materia(id) on delete cascade -- se uma matéria for removida, seus registros de presença também serão excluídos
 );
 
 -- criar trigger para calcular a média automaticamente
